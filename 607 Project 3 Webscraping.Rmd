@@ -237,37 +237,22 @@ jd_df$job_descr<-toupper(jd_df$job_descr)
     }
     }
   
-   
-   
-   
-    #for (j in seq_along(PERSONALITY_SKILLS)) {
-    #jd_df$pers<- ifelse(grepl(PERSONALITY_SKILLS[j],jd_df$job_descr[i]),as.character(PERSONALITY_SKILLS[j]),"NA")
-    #}
-   
-    #for (j in seq_along(TECH_SKILLS)) {
-    #jd_df$tech<- ifelse(grepl(TECH_SKILLS[j],jd_df$job_descr[i]),as.character(TECH_SKILLS[j]),"NA")
-    #}
-   
 
 
-
-
-
-
-#length(TS)
-
-
-write.csv(job_attr_df, file ="INDEED_skills_cat.csv", row.names=FALSE)
-
-skills_all<-sqldf("select distinct * from(select id,descr,general as skill from job_attr_df where general <> 'na' 
+skills_all<-sqldf("select distinct * from(select id,general as skill from job_attr_df where general <> 'na' 
       union all
-      select id,descr,personality as skill from job_attr_df where personality <> 'na' 
+      select id,personality as skill from job_attr_df where personality <> 'na' 
       union all
-      select id,descr,tech as skill from job_attr_df where tech <> 'na') a")
+      select id,tech as skill from job_attr_df where tech <> 'na') a")
 
+skills_cat<-sqldf("select distinct id,general,personality,tech from job_attr_df ")
+
+job_descr<-sqldf("select distinct  id,descr from job_attr_df")
 
 
 write.csv(skills_all, file ="INDEED_skills_all.csv", row.names=FALSE)
+write.csv(skills_cat, file ="INDEED_skills_cat.csv", row.names=FALSE)
+write.csv(job_descr, file ="INDEED_job_descr.csv", row.names=FALSE)
 
 ```
 
