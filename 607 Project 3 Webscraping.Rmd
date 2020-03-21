@@ -83,10 +83,10 @@ job_title<- c()
 }
 
   
-  
-  
+
+# the result end was 840, often causes a time out issue so i ran it a few times with different ranges to get the full set of #data
 result_start <- 10 
-result_end <- 840
+result_end <- 100
 results <- seq(from = result_start, to = result_end, by = 10)
 #results
 
